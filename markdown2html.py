@@ -192,4 +192,5 @@ def midlineparse(line):
     nuline = "{}".format(''.join(bracket_tokens_temp))
     return nuline
 
-markup2html()
+if __name__ == "__main__":
+    markup2html()
