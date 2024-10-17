@@ -4,7 +4,7 @@ import os.path
 import hashlib
 """ function that converts markdown to html """
 def markup2html():
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 3:
         eprint("Usage: ./markdown2html.py README.md README.html")
         exit(1)
 
@@ -12,7 +12,7 @@ def markup2html():
         eprint("Missing {}".format(sys.argv[1]))
         exit(1)
 
-    print("")
+    parse()
     exit(0)
 
 def eprint(*args, **kwargs):
@@ -56,7 +56,6 @@ def parse():
             pdashBool = 1
 
         if os.path.isfile(sys.argv[2]) == False:
-            print("file created\n")
             x = open(sys.argv[2], "x")
             x.close
 
@@ -193,4 +192,4 @@ def midlineparse(line):
     nuline = "{}".format(''.join(bracket_tokens_temp))
     return nuline
 
-parse()
+markup2html()
