@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import sys
 import os.path
+import hashlib
 """ function that converts markdown to html """
 def markup2html():
     if len(sys.argv) < 2:
@@ -25,6 +26,7 @@ def parse():
 
     f = open(sys.argv[1], "r")
     for line in f:
+        line = midlineparse(line)
         """ 
         if a list has been opened, dash bool is 1
         if the next line isnt a list item, dashbool remains at 2
@@ -91,6 +93,7 @@ def parse():
     f.close()
 
 def mark2header(line):
+    """ translates # to <h1> """
     count = 0
     for char in line:
         if char == "#":
@@ -106,6 +109,7 @@ def mark2header(line):
             break
 
 def mark2list(line, dashbool):
+    """ translates - to <ul> """
     if (dashbool == 0):
         head = "<ul>\n"
     else:
@@ -114,6 +118,7 @@ def mark2list(line, dashbool):
     return "{}{}".format(head, body)
 
 def mark2olist(line, dashbool):
+    """ translates * to <ol> """
     if (dashbool == 0):
         head = "<ol>\n"
     else:
@@ -122,6 +127,7 @@ def mark2olist(line, dashbool):
     return "{}{}".format(head, body)
 
 def mark2par(line, dashbool):
+    """ translates regular text to <p> and <br/> """
     templine = []
     if (dashbool == 0):
         head = "<p>\n"
@@ -131,5 +137,60 @@ def mark2par(line, dashbool):
         head = ""
     body = "{}".format(line.rstrip())
     return "{}{}".format(head, body)
+
+def midlineparse(line):
+    """ parses bold and other thing mid line """
+
+    """ bold """
+    tokens = line.split('**')
+    for i in range(len(tokens)):
+        if (i % 2 != 0 and tokens[i+1] != ''):
+            tokens[i] = "<b>{}</b>".format(tokens[i])
+    nuline = "{}".format(''.join(tokens))
+    
+    """ em """
+    _tokens = nuline.split('__')
+    for j in range(len(_tokens)):
+        if (i % 2 != 0 and _tokens[i+1] != ''):
+            _tokens[i] = "<em>{}</em>".format(_tokens[i])
+    nuline = "{}".format(''.join(_tokens))
+
+    """ md5 """
+    square_substring = []
+    square_tokens_temp = []
+    square_tokens = nuline.split('[[')
+
+    for sub in square_tokens:
+        square_tokens_temp.extend(sub.split("]]"))
+    for ki in square_tokens[1:]:
+        square_tokens_s = ki.split(']]')
+        if len(square_tokens_s) > 1:
+            square_substring.append(square_tokens_s[0])
+
+    for kj in square_substring:
+        pos = square_tokens_temp.index(kj)
+        encoded = hashlib.md5(square_tokens_temp[pos].encode())
+        square_tokens_temp[pos] = "{}".format(encoded.hexdigest())
+    nuline = "{}".format(''.join(square_tokens_temp))
+
+    """ lowercase """
+    bracket_substring = []
+    bracket_tokens_temp = []
+    bracket_tokens = nuline.split('((')
+
+    for sub in bracket_tokens:
+        bracket_tokens_temp.extend(sub.split("))"))
+    for li in bracket_tokens[1:]:
+        bracket_tokens_s = li.split('))')
+        if len(bracket_tokens_s) > 1:
+            bracket_substring.append(bracket_tokens_s[0])
+
+    for lj in bracket_substring:
+        pos = bracket_tokens_temp.index(lj)
+        ret = lj.replace('c', '').replace('C', '')
+        bracket_tokens_temp[pos] = "{}".format(ret)
+
+    nuline = "{}".format(''.join(bracket_tokens_temp))
+    return nuline
 
 parse()
