@@ -1,14 +1,21 @@
 #!/usr/bin/python3
-import sys
-import os.path
-import hashlib
-
-""" Write a script markdown2html.py that takes an argument 2 strings:
+"""
+Write a script markdown2html.py that takes an argument 2 strings:
     First argument is the name of the Markdown file
     Second argument is the output file name
 """
 
+import sys
+import os.path
+import hashlib
+
+
 if __name__ == '__main__':
+    """
+    Write a script markdown2html.py that takes an argument 2 strings:
+    First argument is the name of the Markdown file
+    Second argument is the output file name
+    """
     def eprint(*args, **kwargs):
         """ prints out to the stderr """ 
         print(*args, file=sys.stderr, **kwargs)
