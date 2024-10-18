@@ -1,13 +1,9 @@
 #!/usr/bin/python3
-"""
+""" 
 Write a script markdown2html.py that takes an argument 2 strings:
-    First argument is the name of the Markdown file
-    Second argument is the output file name
+First argument is the name of the Markdown file
+Second argument is the output file name 
 """
-
-import sys
-import os.path
-import hashlib
 
 
 if __name__ == '__main__':
@@ -16,6 +12,11 @@ if __name__ == '__main__':
     First argument is the name of the Markdown file
     Second argument is the output file name
     """
+
+    import sys
+    import os.path
+    import hashlib
+
     def eprint(*args, **kwargs):
         """ prints out to the stderr """ 
         print(*args, file=sys.stderr, **kwargs)
@@ -205,4 +206,4 @@ if __name__ == '__main__':
         exit(1)
 
     parse()
-exit(0)
+    exit(0)
