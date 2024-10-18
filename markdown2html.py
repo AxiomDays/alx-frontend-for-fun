@@ -43,7 +43,6 @@ if __name__ == '__main__':
 
             if line[0] == "#":
                 finalLine = mark2header(line)
-
             elif line[0] == "-":
                 finalLine = mark2list(line, dashBool)
                 dashBool = 1
