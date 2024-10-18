@@ -17,10 +17,6 @@ if __name__ == '__main__':
     import os.path
     import hashlib
 
-    def eprint(*args, **kwargs):
-        """ prints out to the stderr """ 
-        print(*args, file=sys.stderr, **kwargs)
-
     def parse():
         """ dashBool at 0 represents that no ul list is open"""
         dashBool = 0
@@ -197,12 +193,12 @@ if __name__ == '__main__':
 
 
     """ function that converts markdown to html """
-    if len(sys.argv) < 2:
-        eprint("Usage: ./markdown2html.py README.md README.html")
+    if len(sys.argv) < 3:
+        print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
         exit(1)
 
     if os.path.isfile(sys.argv[1]) == False:
-        eprint("Missing {}".format(sys.argv[1]))
+        print("Missing {}".format(sys.argv[1]), file=sys.stderr)
         exit(1)
 
     parse()
