@@ -99,7 +99,7 @@ if __name__ == '__main__':
                 continue
             elif char == " ":
                 head = "<h{}>".format(count)
-                tail = "<h{}/>".format(count)
+                tail = "</h{}>".format(count)
                 finalLine = "{}{}{}".format(head, line[(count+1):].rstrip(), tail)
                 return (finalLine)
                 break
