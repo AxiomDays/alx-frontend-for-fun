@@ -143,8 +143,8 @@ if __name__ == '__main__':
         """ em """
         _tokens = nuline.split('__')
         for j in range(len(_tokens)):
-            if (i % 2 != 0 and _tokens[i+1] != ''):
-                _tokens[i] = "<em>{}</em>".format(_tokens[i])
+            if (j % 2 != 0 and _tokens[j+1] != ''):
+                _tokens[j] = "<em>{}</em>".format(_tokens[j])
         nuline = "{}".format(''.join(_tokens))
 
         """ md5 """
