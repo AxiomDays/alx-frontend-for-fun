@@ -84,11 +84,6 @@ if __name__ == '__main__':
         w.close()
         f.close()
 
-        f = open(sys.argv[2], "r")
-        for line in f:
-            print(line)
-        f.close()
-
     def mark2header(line):
         """ translates # to <h1> """
         count = 0
